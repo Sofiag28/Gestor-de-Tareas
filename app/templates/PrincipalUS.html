@@ -23,7 +23,10 @@
                 <i class="fa fa-tags" aria-hidden="true"></i>
                 <a href="/tareas">Mostrar Tareas</a>
             </li>
-             
+            <li class="elementos">
+                <i class="fa fa-address-book" aria-hidden="true"></i>
+                    <a href="/grafico_tareas">Estadisticas por gráfico</a>
+            </li>    
             <li class="elementos">
                 <i class="fas fa-sign-out-alt"></i>
                 <a href="/salir">Cerrar Sesión</a>
@@ -39,6 +42,7 @@
         {% endif %}
         {{ nombre_usuario }} {{ apellidos }}</h1>
     </div>
+
     {% if ver_tareas %}
     <div class="usuarios-registrados">
         <h2>Tareas Registradas</h2>

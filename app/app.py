@@ -1,10 +1,14 @@
-from flask import Flask,render_template,request, redirect,url_for,session,abort
+from flask import Flask,jsonify, request, send_file, render_template,redirect,url_for,session,abort
 import mysql.connector
 from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 from itsdangerous import URLSafeTimedSerializer
 from itsdangerous.exc import BadSignature
 from flask_mail import Mail,Message
+from flask_mysqldb import MySQL
+from config import config
+import matplotlib.pyplot as plt
+import io
 
 app =Flask(__name__)
 
@@ -316,6 +320,36 @@ def registrarTarea():
         return redirect(url_for('tareas'))
     return render_template('RegistroTareas.html',Rol=session['Rol'],nickname=session['nickname'],genero=session['genero'],nombre_usuario=session['Nombre'], apellidos=session['Apellido'])
 
-if __name__=='__main__': #INVESTIGAR
-    app.run(debug=True)
-    app.add_url_rule('/',view_func=registrarTarea)
+    #################################################################GRAFICOS##################################################################################################
+
+#GRAFICO TAREAS
+
+@app.route('/grafico_tareas', methods=['GET'])
+def graf_task():
+    cursor=db.cursor(dictionary=True)
+    cursor.execute("SELECT Estado, COUNT(*) as count FROM tareas GROUP BY Estado")
+    datos=cursor.fetchall()
+    print(datos) 
+    
+    estado=[fila['Estado'] for fila in datos]
+    counts=[fila['count'] for fila in datos]
+    
+    fig, ax= plt.subplots()
+    ax.bar(estado, counts, color='blue')
+    ax.set_xlabel('Estado')
+    ax.set_ylabel('Count')
+    ax.set_title('Tareas por estado')
+
+    img=io.BytesIO()
+    plt.savefig(img, format='png')
+    img.seek(0)
+    plt.close(fig)
+    
+
+    return send_file(img, mimetype='image/png')
+    return render_template('graficotareas.html',Rol=True,nickname=session['nickname'],genero=session['genero'],nombre_usuario=session['Nombre'], apellidos=session['Apellido'])
+    
+if __name__ == '__main__':
+    app.config.from_object(config['config'])
+    app.add_url_rule('/Registrotareas', view_func=registrarTarea, methods=['GET', 'POST'])  # Si realmente necesitas esto, aunque ya lo tienes decorado
+    app.run(debug=True, use_reloader=False) #PARA VER LOS CAMBIOS DEBE DE HABER ESTA CONFIGURACION Y ENCONTRARSE ACTUALIZADA
