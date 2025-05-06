@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/sesion.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Registro de Usuario</title>
+</head>
+<body>
+    
+    <div class="primer_elemento">
+        <i class="fa fa-user-circle" poppins-serif="true"></i>
+        <span class="username">{{ nickname }}</span>
+    </div>
+
+    <nav class="menu">
+        <ul class="lista">
+            <div class="Buscador">
+                <form class="form-inline" action="/buscar_tarea" method="POST">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="busqueda" placeholder="Buscar tarea">
+                </div>
+                <div class="input-group-append">
+                    <button type="submit" class="btb btn-danger">Buscar</button>
+                </div>
+                </form>
+                </div>
+            <li class="elementos">
+                <i class="fa fa-address-book" aria-hidden="true"></i>
+                    <a href="/lista">Ver usuarios</a>
+            </li>
+
+            <li class="elementos">
+                <i class="fa fa-users" aria-hidden="true"></i>
+                <a href="/RegistroUsuarios">Registro de usuarios</a>
+            </li>
+
+            <li class="elementos">
+                <i class="fas fa-tasks"></i>
+                <a href="/Registrotareas">Registro de Tareas</a>
+            </li>
+            
+
+            <li class="elementos">
+                <i class="fa fa-tags" aria-hidden="true"></i>
+                <a href="/tareas">Mostrar Tareas</a>
+            </li>
+
+            <li class="elementos">
+                <i class="fas fa-sign-out-alt"></i>
+                <a href="/salir">Cerrar Sesión</a>
+            </li>
+            
+        </ul>
+    </nav>
+   
+
+    <div class="content">
+        <h1>{% if genero== 'Masculino' %}
+            Bienvenido:
+        {% else  %}
+            Bienvenida:
+        {% endif %}
+        {{ nombre_usuario }} {{ apellidos }}</h1>
+    </div>
+
+    
+
+    
+    <div class="container">
+        <h1>Registro de Usuarios</h1>
+        <form method="post" action="/RegistroUsuarios">
+            <label for="nombre_usuario">Nombres</label>
+            <input type="text" name="Nombre_usuario" id="nombre_usuario" required>
+
+            <label for="apellidos_usuario">Apellidos</label>
+            <input type="text" name="Apellidos_usuario" id="apellidos_usuario" required>
+
+            <label for="email_usuario">Email</label>
+            <input type="email" name="Email_usuario" id="email_usuario" required>
+
+            <label for="Genero">Genero</label>
+            <select name="Genero" id="Genero">
+                <option value="Seleccionar">Seleccionar</option>
+                <option value="Femenino">Femenino</option>
+                <option value="Masculino">Masculino</option>
+            </select>
+            <label for="usuario_name">Nombre de Usuario</label>
+            <input type="text" name="Usuario_name" id="usuario_name" required>
+
+            <label for="contrasena_usuario">Contraseña</label>
+            <input type="password" name="Contraseña_Usuario" id="contrasena_usuario" required>
+
+            <label for="rol_usuario">Rol</label>
+            <select name="Rol" id="Rol">
+                <option value="Administrador">Administrador</option>
+                <option value="Usuario">Usuario</option>
+            </select>
+            <button type="submit">Registrar Usuario</button>
+        </form>
+    </div>
+    
+</body>
+</html>

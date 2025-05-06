@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Contraseña</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='Css/bootstrap.min.css')}}">
+</head>
+<body>
+    <h2>RECUPERAR CONTRASEÑA</h2>
+    <p>Ingresa la dirección del correo electronico y se enviara 
+        un enlace para recuperar la contraseña
+    </p>
+
+    <form method="post" action="">
+        <div class="form-group">
+            <label for="">Correo Electronico</label>
+            <input type="email" name="email" id="email" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar
+            <a href="{{url_for('recuperar_contraseña')}}"></a>
+        </button>
+    </form>
+</body>
+</html>

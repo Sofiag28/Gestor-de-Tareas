@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/sesion.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Registro</title>
+</head>
+<body>
+
+    {% if Rol == 'Administrador' %}
+    
+    <div class="primer_elemento">
+        <i class="fa fa-user-circle" poppins-serif="true"></i>
+        <span class="username">{{ nickname }}</span>
+    </div>
+
+    <nav class="menu">
+        <ul class="lista">
+            <div class="Buscador">
+                <form class="form-inline" action="/buscar_tarea" method="POST">
+                    <div class="input-group">
+                        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                        <input type="text" class="form-control" name="busqueda" placeholder="Buscar tarea">
+            </div>
+            <div class="input-group-append">
+                <button type="submit" class="btb btn-danger">Buscar</button>
+            </div>
+                </form>
+            </div>
+            <li class="elementos">
+                <i class="fa fa-address-book" aria-hidden="true"></i>
+                    <a href="/lista">Ver usuarios</a>
+            </li>
+
+            <li class="elementos">
+                <i class="fa fa-users" aria-hidden="true"></i>
+                <a href="/RegistroUsuarios">Registro de usuarios</a>
+            </li>
+
+            <li class="elementos">
+                <i class="fas fa-tasks"></i>
+                <a href="/Registrotareas">Registro de Tareas</a>
+            </li>
+            <li class="elementos">
+                <i class="fa fa-tags" aria-hidden="true"></i>
+                <a href="/tareas">Mostrar Tareas</a>
+            </li>
+            <li class="elementos">
+                <i class="fas fa-sign-out-alt"></i>
+                <a href="/salir">Cerrar Sesión</a>
+            </li>
+            
+        </ul>
+    </nav>
+    {% else %}
+  
+    <div class="primer_elemento">
+        <i class="fa fa-user-circle" poppins-serif="true"></i>
+        <span class="username">{{ nickname }}</span>
+    </div>
+    <nav class="menu">
+        <ul class="lista">
+            <li class="elementos">
+                <i class="fas fa-tasks"></i>
+                <a href="/Registrotareas">Registro de Tareas</a>
+            </li>
+
+            <li class="elementos">
+                <i class="fa fa-tags" aria-hidden="true"></i>
+                <a href="/tareas">Mostrar Tareas</a>
+            </li>
+             
+            <li class="elementos">
+                <i class="fas fa-sign-out-alt"></i>
+                <a href="/salir">Cerrar Sesión</a>
+            </li>
+        </ul>
+    </nav>
+    {% endif%}
+
+    <div class="content">
+        <h1>{% if genero== 'Masculino' %}
+            Bienvenido:
+        {% else  %}
+            Bienvenida:
+        {% endif %}
+        {{ nombre_usuario }} {{ apellidos }}</h1>
+    </div>
+    
+    
+    <div class="container3">
+        <h1>Registro de Tareas</h1>
+
+    <form method="post" action="/Registrotareas">
+        <label>Nombre de la tarea</label>
+        <input type="text" name="Nombre" required>
+
+        <label>Inicio de la tarea</label>
+        <input type="datetime-local" name="Fecha_Inicio" required>
+
+        <label>Fin de la tarea</label>
+        <input type="datetime-local" name="Fecha_final" required>
+
+        <label>Estado:</label>
+        <select name="Estado">Estado:
+            <option value="asignado">Asignado</option>
+            <option value="por asignar">Por asignar</option>
+            <option value="terminado">Terminado</option>
+        </select>
+        <button type="submit">Registrar Tarea</button>
+    </form>
+    </div>
+    
+</body>
+</html>

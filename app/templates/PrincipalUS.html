@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/sesion.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>USUARIOS</title>
+</head>
+<body>
+    <div class="primer_elemento">
+        <i class="fa fa-user-circle" poppins-serif="true"></i>
+        <span class="username">{{ nickname }}</span>
+    </div>
+    <nav class="menu">
+        <ul class="lista">
+            <li class="elementos">
+                <i class="fas fa-tasks"></i>
+                <a href="/Registrotareas">Registro de Tareas</a>
+            </li>
+
+            <li class="elementos">
+                <i class="fa fa-tags" aria-hidden="true"></i>
+                <a href="/tareas">Mostrar Tareas</a>
+            </li>
+             
+            <li class="elementos">
+                <i class="fas fa-sign-out-alt"></i>
+                <a href="/salir">Cerrar Sesión</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="content">
+        <h1>{% if genero== 'Masculino' %}
+            Bienvenido:
+        {% else  %}
+            Bienvenida:
+        {% endif %}
+        {{ nombre_usuario }} {{ apellidos }}</h1>
+    </div>
+    {% if ver_tareas %}
+    <div class="usuarios-registrados">
+        <h2>Tareas Registradas</h2>
+    </div>
+    <table class="user-table">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Nombre</th>
+                <th>Inicio</th>
+                <th>Fin</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tareas in task %}
+            <tr>
+                <td>{{ tareas[0] }}</td>
+                <td>{{ tareas[1] }}</td>
+                <td>{{ tareas[2] }}</td>
+                <td>{{ tareas[3] }}</td>
+                <td>{{ tareas[4] }}</td>
+                <td class="Acciones">
+                    <a href="{{ url_for('eliminar_tareas',id_Tareas=tareas[0]) }}">Eliminar<i class="icon-remove"></i></a>
+                    <a href="{{ url_for('editar_tareas',id_Tareas=tareas[0])}}">Actualizar</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</body>
+</html>

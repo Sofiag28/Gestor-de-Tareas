@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/sesion.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+    <title>MODAL</title>
+</head>
+<body>
+    
+    <h1>FORMULARIO</h1>
+
+    {% if Rol == 'Administrador' %}
+    
+    <div class="primer_elemento">
+        <i class="fa fa-user-circle" poppins-serif="true"></i>
+        <span class="username">{{ nickname }}</span>
+    </div>
+
+    <nav class="menu">
+        <ul class="lista">
+            <div class="Buscador">
+                <form class="form-inline" action="/buscar_tarea" method="POST">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="busqueda" placeholder="Buscar tarea">
+            </div>
+            <div class="input-group-append">
+                <button type="submit" class="btb btn-danger">Buscar</button>
+            </div>
+                </form>
+            </div>
+            <li class="elementos">
+                <i class="fa fa-address-book" aria-hidden="true"></i>
+                    <a href="/lista">Ver usuarios</a>
+            </li>
+
+            <li class="elementos">
+                <i class="fa fa-users" aria-hidden="true"></i>
+                <a href="/RegistroUsuarios">Registro de usuarios</a>
+            </li>
+
+            <li class="elementos">
+                <i class="fas fa-tasks"></i>
+                <a href="/Registrotareas">Registro de Tareas</a>
+            </li>
+            <li class="elementos">
+                <i class="fa fa-tags" aria-hidden="true"></i>
+                <a href="/tareas">Mostrar Tareas</a>
+            </li>
+            <li class="elementos">
+                <i class="fas fa-sign-out-alt"></i>
+                <a href="/salir">Cerrar Sesión</a>
+            </li>
+            
+        </ul>
+    </nav>
+    {% else %}
+  
+    <div class="primer_elemento">
+        <i class="fa fa-user-circle" poppins-serif="true"></i>
+        <span class="username">{{ nickname }}</span>
+    </div>
+    <nav class="menu">
+        <ul class="lista">
+            <li class="elementos">
+                <i class="fas fa-tasks"></i>
+                <a href="/Registrotareas">Registro de Tareas</a>
+            </li>
+
+            <li class="elementos">
+                <i class="fa fa-tags" aria-hidden="true"></i>
+                <a href="/tareas">Mostrar Tareas</a>
+            </li>
+             
+            <li class="elementos">
+                <i class="fas fa-sign-out-alt"></i>
+                <a href="/salir">Cerrar Sesión</a>
+            </li>
+        </ul>
+    </nav>
+    {% endif%}
+    <div class="content-saludo">
+        <h1>{% if genero== 'Masculino' %}
+            Bienvenido:
+        {% else  %}
+            Bienvenida:
+        {% endif %}
+        {{ nombre_usuario }} {{ apellidos }}</h1>
+    </div>
+    <div class="container-update">
+    <form method="POST" action="">
+        <div class="form-group">
+            <label>Código de la tarea</label>
+            <input type="number" class="form-control" id="codigo" name="codigo" value="{{tareas[0]}}" disabled>
+        </div>
+        <div class="form-group">
+            <label>Nombre de la tarea</label>
+            <input type="text" class="form-control" id="nombretar" name="nombretar" value="{{tareas[1]}}">
+        </div>
+            
+        <div class="form-group">
+            <label>Fecha de inicio</label>
+            <input type="datetime" class="form-control" id="finicio" name="finicio"value="{{tareas[2]}}">
+        </div>
+
+        <div class="form-group">
+            <label>Fecha final</label>
+            <input type="datetime" class="form-control" id="ftermino" name="ftermino"value="{{tareas[3]}}">
+        </div>
+
+        
+            <div class="form-group" id="estadotar" name="estadotar"value="{{tareas[4]}}">
+                <label>Estado de la tarea:</label>
+            <select name="estadotar">Estado:
+                <option value="asignado">Asignado</option>
+                <option value="por asignar">Por asignar</option>
+                <option value="terminado">Terminado</option>
+            </select>
+            </div>
+<p></p>
+        <button type="submit" class="boton-actualizar">Actualizar</button>
+    </form>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
